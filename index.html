@@ -1,0 +1,530 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Inseguridad más allá de la clase · Comité</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* Formato habitual de Gonzalo (deck "Redes de pares"): diapositivas 1280×720, paleta UC azul y amarillo, Libre Franklin. Un solo tema claro, deliberado. */
+:root{
+  color-scheme:light;
+  --azul:#0176DE;
+  --azul-osc:#173F8A;
+  --azul-noche:#03122E;
+  --amarillo:#FEC60D;
+  --amarillo-suave:#FFF4CC;
+  --azul-suave:#E6F1FC;
+  --tinta:#1B2433;
+  --gris:#5B6475;
+  --linea:#D9DEE7;
+  --blanco:#FFFFFF;
+  --fondo:#EEF1F5;
+  --verde:#1F6F65;
+  --verde-suave:#E4F0EE;
+  --rojo:#A33A2B;
+  --rojo-suave:#F8E6E2;
+  --ambar:#8A6200;
+  --fila:#FAFBFD;
+  --notas-tx:#E8EEF8;
+  --ayuda:#8A93A6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--fondo);font-family:"Libre Franklin",system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--tinta);overflow:hidden}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#deck{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;background:var(--blanco);padding:56px 80px 56px;display:none;flex-direction:column;box-shadow:0 10px 40px rgba(3,18,46,.12);overflow:hidden}
+.slide.active{display:flex}
+.slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--azul-osc)}
+.slide::after{content:"";position:absolute;left:0;top:0;width:10px;height:96px;background:var(--amarillo)}
+h1{font-weight:700;color:var(--azul-osc);font-size:44px;line-height:1.12;letter-spacing:-.01em;text-wrap:balance}
+h2{font-weight:700;color:var(--azul-osc);font-size:32px;letter-spacing:-.01em;line-height:1.18;margin-bottom:22px;max-width:1000px;text-wrap:balance}
+h3{font-size:20px;font-weight:700;color:var(--azul-osc);margin-bottom:8px}
+p,li{font-size:18.5px;line-height:1.45}
+.muted{color:var(--gris)}
+.ref{font-size:14px;color:var(--gris);line-height:1.35}
+strong{font-weight:700;color:var(--azul-osc)}
+ul.clean{list-style:none}
+ul.clean li{position:relative;padding-left:26px;margin-bottom:11px}
+ul.clean li::before{content:"";position:absolute;left:2px;top:.62em;width:10px;height:10px;background:var(--amarillo);border-radius:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border:1px solid var(--linea);border-top:5px solid var(--azul);border-radius:6px;padding:18px 22px;background:var(--blanco)}
+.card.y{border-top-color:var(--amarillo)}
+.card.d{border-top-color:var(--azul-osc)}
+.card.g{border-top-color:var(--verde)}
+.card p,.card li{font-size:16.5px;line-height:1.4}
+.card.slim{padding:13px 18px}
+.card.slim p{font-size:15.5px}
+.pill{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:0 0 3px;border-bottom:2px solid currentColor;color:var(--azul)}
+.pill.y{color:var(--ambar)}
+.pill.d{color:var(--azul-osc)}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ambar);margin-bottom:8px}
+.foot{position:absolute;left:80px;right:80px;bottom:22px;display:flex;justify-content:space-between;font-size:13px;color:var(--gris);letter-spacing:.02em}
+.foot .n{font-weight:700;color:var(--azul-osc);font-variant-numeric:tabular-nums}
+.quote{font-weight:400;font-size:22px;line-height:1.38;color:var(--azul-osc);border-left:6px solid var(--amarillo);padding:6px 0 6px 26px}
+.lead-in{font-size:17px;margin:-8px 0 14px;color:var(--tinta);max-width:1060px}
+.cover{padding:0}
+.cover::before,.cover::after{display:none}
+.cover .left{flex:1;padding:130px 140px 70px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center}
+.cover h1{font-size:42px;margin:0 auto 22px;max-width:980px}
+.cover .en{font-style:italic;font-size:20px;color:var(--gris);line-height:1.35;max-width:840px}
+.cover .who{font-size:20px;font-weight:700;color:var(--azul-osc)}
+.cover .who span{display:block;font-weight:400;color:var(--gris);font-size:16.5px;margin-top:4px}
+/* Tablas de decisión */
+table.dec{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+table.dec th{color:var(--blanco);background:var(--azul-osc);padding:10px 14px;font-size:14px;font-weight:700;text-align:left;vertical-align:bottom}
+table.dec th:first-child{border-top-left-radius:4px}
+table.dec th:last-child{border-top-right-radius:4px}
+table.dec td{font-size:15px;line-height:1.36;padding:9px 14px;border-bottom:1px solid var(--linea);vertical-align:top}
+table.dec td.k{font-weight:700;color:var(--azul-osc);font-size:14.5px}
+table.dec tr:nth-child(even) td{background:var(--fila)}
+table.dec tr.pick td{background:var(--azul-suave)}
+table.dec.tight td{padding:7px 12px;font-size:14px}
+table.dec.tight th{padding:8px 12px;font-size:13.5px}
+.tag{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.tag.ok{background:var(--verde-suave);color:var(--verde)}
+.tag.no{background:var(--rojo-suave);color:var(--rojo)}
+.tag.mid{background:var(--amarillo-suave);color:var(--ambar)}
+.tag.sel{background:var(--azul-osc);color:var(--blanco)}
+.eq{background:var(--azul-suave);border-left:5px solid var(--azul);padding:14px 18px;font-size:19px;color:var(--azul-osc);border-radius:4px;line-height:1.55;font-family:Cambria,"Libre Franklin",serif}
+.eq small{display:block;font-family:"Libre Franklin",sans-serif;font-size:14.5px;color:var(--gris);margin-top:4px}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat b{font-size:34px;font-weight:800;color:var(--azul-osc);line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:14.5px;color:var(--gris);line-height:1.3}
+.figbox{display:flex;align-items:center;justify-content:center;min-width:0}
+.figbox img{max-height:470px;width:auto;max-width:100%;display:block;border:1px solid var(--linea);border-radius:4px}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:6px}
+.tl .w{border-top:4px solid var(--azul-osc);padding:12px 14px 0 0;position:relative}
+.tl .w::before{content:"";position:absolute;top:-10px;left:0;width:16px;height:16px;border-radius:50%;background:var(--azul-osc)}
+.tl .w b{display:block;font-size:24px;color:var(--azul-osc);font-variant-numeric:tabular-nums}
+.tl .w p{font-size:15px;line-height:1.35}
+.hist{margin-top:22px;position:relative;height:56px}
+.hist .bar{position:absolute;top:0;height:26px;border-radius:3px;display:flex;align-items:center;padding:0 10px;font-size:13.5px;font-weight:700}
+.next{margin-top:4px}
+.nrow{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:start;padding:9px 0;border-bottom:1px solid var(--linea)}
+.nrow:last-child{border-bottom:0}
+.nrow .q{font-size:17.5px;line-height:1.4}
+.qmark{width:28px;height:28px;border-radius:50%;border:2px solid var(--azul);color:var(--azul);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+.logo{position:absolute;top:22px;right:40px;height:56px;width:auto;z-index:2;pointer-events:none}
+#progress{position:fixed;left:0;bottom:0;height:4px;background:var(--amarillo);transition:width .25s;z-index:20}
+#notes{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(420px,calc(100vw - 32px));max-height:40vh;overflow:auto;background:var(--azul-noche);color:var(--notas-tx);font-size:15px;line-height:1.45;padding:16px 18px;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:10}
+#notes b{color:var(--amarillo)}
+#help{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));top:12px;font-size:12px;color:var(--ayuda);z-index:5;transition:opacity 1s}
+#help.off{opacity:0}
+.notes{display:none}
+@media (prefers-reduced-motion:reduce){#progress,#help{transition:none}}
+</style>
+
+<div id="viewport"><div id="deck">
+
+<!-- 1 -->
+<section class="slide cover active" data-title="Portada">
+  <div class="left">
+    <div>
+      <h1>¿Cuándo es la inseguridad económica algo más que clase?</h1>
+      <p class="en">Posición contractual, shocks laborales y vida de niñas y niños en Chile. Decisiones de análisis y resultados para discutir con el comité</p>
+    </div>
+    <div>
+      <p class="who">Gonzalo Torres Rosales<span>Doctorado en Sociología, Pontificia Universidad Católica de Chile · Noviembre 2026</span></p>
+    </div>
+  </div>
+  <div class="notes">Objetivo de la reunión: validar las decisiones operativas antes de cerrar el manuscrito. Los resultados van al final y de forma más breve.</div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="Pregunta">
+  <h2>La pregunta: cuándo la inseguridad es algo distinto de la clase</h2>
+  <p class="lead-in">Los hogares más expuestos a perder el empleo son también los que tienen menos recursos. Si la clase ya capta quién está expuesto a perder, la inseguridad podría ser clase con otro nombre.</p>
+  <div class="grid2" style="gap:26px">
+    <div class="card d"><span class="pill d">Lectura 1 · la clase absorbe</span><p style="margin-top:10px">La clase de servicio se define por empleo seguro y perspectivas de largo plazo (Erikson y Goldthorpe 1992; Goldthorpe y McKnight 2006). Los riesgos de pobreza siguen estratificados por clase (Gioachin et al. 2023).</p></div>
+    <div class="card y"><span class="pill y">Lectura 2 · la inseguridad se desacopla</span><p style="margin-top:10px">La inseguridad se ha extendido a las clases medias (Ranci et al. 2021) y pesa sobre familias lejos de la pobreza (Cooper 2014). Sería un eje propio de desigualdad.</p></div>
+  </div>
+  <div class="quote" style="margin-top:24px">Pregunto bajo qué circunstancias la inseguridad económica es algo distinto de la clase y sobre qué actúa cuando lo es.</div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+  <div class="notes">Con las medidas habituales ambas lecturas son difíciles de dirimir. La descomposición que propongo permite separarlas.</div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="Argumento">
+  <h2>El argumento descansa en dos separaciones</h2>
+  <p class="lead-in">Descompongo la inseguridad en cinco elementos (exposición, realización, magnitud, colchones y anticipación) y busco los que la clase ocupacional no determina por completo.</p>
+  <div class="grid2" style="gap:26px">
+    <div class="card"><h3>1. Clase ocupacional y estatus contractual</h3><p>Dos madres con el mismo empleo administrativo pueden tener posiciones contractuales distintas, una con contrato indefinido y otra encadenando plazos fijos. La dualización atraviesa las ocupaciones (Emmenegger et al. 2012; Schwander y Häusermann 2013).</p><p style="margin-top:10px" class="muted">Si el contrato es estable y predecible, debería comportarse como la clase.</p></div>
+    <div class="card y"><h3>2. Exposición y realización</h3><p>Estar en una posición donde las pérdidas son probables no es lo mismo que sufrirlas. La parte de las pérdidas que la posición no predecía está, por construcción, menos ligada a la clase.</p><p style="margin-top:10px" class="muted">Si la inseguridad tiene efectos propios, deberían verse en esa parte.</p></div>
+  </div>
+  <div class="card slim g" style="margin-top:20px"><p><strong>Mecanismos.</strong> La posición actuaría por recursos acumulados, sobre capacidades y malestar crónico. Los shocks actuarían por incertidumbre, sobre horizontes, conducta y, quizá, planificación del hogar.</p></div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="Expectativas">
+  <h2>Esto es lo que esperaba encontrar por dominio</h2>
+  <p class="lead-in">La prueba no es si la inseguridad se asocia con los resultados, sino con cuáles. Si fuera clase con otro nombre, reproduciría el perfil de la clase en menor tamaño.</p>
+  <table class="dec">
+    <thead><tr><th style="width:24%">Dominio</th><th style="width:16%">Clase</th><th style="width:22%">Posición (precariedad esperada)</th><th>Shocks (precariedad no esperada)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Inversión y planificación del hogar</td><td>Gradiente fuerte</td><td>Negativa</td><td>Nula por la vía de recursos, negativa por la vía de planificación <span class="tag sel">Fijada: nula</span></td></tr>
+      <tr><td class="k">Bienestar familiar</td><td>Gradiente fuerte</td><td>Más malestar de la cuidadora</td><td>Más problemas de conducta <span class="tag sel">Fijada: daño</span></td></tr>
+      <tr><td class="k">Capacidades de los niños</td><td>Gradiente fuerte</td><td>Negativa</td><td>Nula <span class="tag sel">Fijada: nula en cognición</span></td></tr>
+      <tr><td class="k">Horizontes de los niños</td><td>Gradiente fuerte</td><td>Débil o nula</td><td>Negativa</td></tr>
+    </tbody>
+  </table>
+  <p class="ref" style="margin-top:14px">Las tres predicciones marcadas se fijaron el 31 de octubre de 2026, antes de construir los índices de inversión, cognición y conducta. El resto del análisis es exploratorio.</p>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="Datos">
+  <div class="eyebrow">Decisiones operativas</div>
+  <h2>Los datos: ELPI y la historia laboral mensual de la madre</h2>
+  <div class="tl">
+    <div class="w"><b>2010</b><p>Primera ola. Niñas y niños nacidos 2006–2009. Ingreso, tenencia de vivienda, bienes durables, ocupación de la pareja.</p></div>
+    <div class="w"><b>2012</b><p>Historia laboral mensual de la madre desde enero 2004: empleo, desempleo, inactividad, contrato y motivo de salida.</p></div>
+    <div class="w"><b>2017</b><p>Cognición, matemáticas, conducta (CBCL), inversiones, expectativas. Situación laboral de una semana.</p></div>
+    <div class="w"><b>2024</b><p>Adolescentes: expectativas, aspiraciones, vínculo escolar, logro, salud mental. Situación laboral de una semana.</p></div>
+  </div>
+  <div class="hist">
+    <div class="bar" style="left:0;width:9%;background:var(--azul-suave);color:var(--azul-osc)">2004</div>
+    <div class="bar" style="left:9%;width:23%;background:var(--azul-osc);color:var(--blanco)">historia previa al nacimiento</div>
+    <div class="bar" style="left:32%;width:17%;background:var(--amarillo);color:var(--azul-noche)">exposición: nacimiento → 2012</div>
+  </div>
+  <div class="grid3" style="margin-top:4px;gap:18px">
+    <div class="card slim"><div class="stat"><b>6.204</b><span>madres con 12 o más meses en la fuerza de trabajo entre el nacimiento y 2012</span></div></div>
+    <div class="card slim d"><div class="stat"><b>45</b><span>meses observables antes del nacimiento (mediana)</span></div></div>
+    <div class="card slim y"><div class="stat"><b>95%</b><span>de los hogares con clase previa clasificable (madre antes del parto o pareja en 2010)</span></div></div>
+  </div>
+  <p class="ref" style="margin-top:12px">Muestra: además, ingreso del hogar observado en al menos tres olas.</p>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="D1 · Ventana">
+  <div class="eyebrow">Decisión 1</div>
+  <h2>La exposición se mide entre el nacimiento y 2012</h2>
+  <table class="dec">
+    <thead><tr><th style="width:21%">Opción</th><th style="width:27%">Qué permite</th><th style="width:30%">Problema</th><th>Decisión</th></tr></thead>
+    <tbody>
+      <tr class="pick"><td class="k">Historia mensual nacimiento–2012</td><td>Ver cada mes, separar historia previa y posterior, contar salidas involuntarias</td><td>Exposición temprana; resultados medidos 5 a 12 años después</td><td><span class="tag sel">Elegida</span> Es la única medida con secuencia mensual</td></tr>
+      <tr><td class="k">Instantánea 2017</td><td>Exposición más cercana a los resultados de 2024</td><td>Una semana de referencia. No distingue un evento de un estado</td><td><span class="tag mid">Extensión</span> Probada como realización tardía (script 10)</td></tr>
+      <tr><td class="k">Instantánea 2024</td><td>Pérdida de empleo del hogar en 2024</td><td>Contemporánea a los resultados. Riesgo de causalidad inversa</td><td><span class="tag no">Descartada</span> como exposición principal</td></tr>
+    </tbody>
+  </table>
+  <div class="card slim y" style="margin-top:18px"><p><strong>Resultado de la extensión.</strong> La precariedad de 2017 no predicha por la posición ni por la precariedad anterior no se relaciona con los resultados de 2024. Con una medida de un solo momento, este nulo no dice si importa cuándo ocurre el shock.</p></div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="D2 · Clase">
+  <div class="eyebrow">Decisión 2</div>
+  <h2>La clase se mide antes del nacimiento</h2>
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;gap:26px">
+    <table class="dec tight">
+      <thead><tr><th style="width:24%">Elemento</th><th style="width:38%">Elección</th><th>Por qué</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Madre</td><td>Ocupación del último empleo antes del parto</td><td>Fija la clase antes de la ventana de exposición</td></tr>
+        <tr><td class="k">Pareja</td><td>Ocupación reportada en 2010</td><td>No tiene historia laboral. Queda dentro de la ventana (limitación)</td></tr>
+        <tr><td class="k">Regla de hogar</td><td>Clase del miembro con mayor ISEI</td><td>Criterio de dominancia habitual</td></tr>
+        <tr><td class="k">Esquema</td><td>EGP en tres grupos más spline de ISEI</td><td>Grupos para comparar, ISEI para el ajuste fino</td></tr>
+        <tr><td class="k">Grupos</td><td>Servicio I–II · Intermedia III, IVab · Trabajadora V–VII, IVc</td><td>Tamaños suficientes para estimar dentro de cada clase</td></tr>
+      </tbody>
+    </table>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card slim"><div class="stat"><b>69%</b><span>de los hogares está en la misma clase EGP antes del nacimiento y en 2010</span></div></div>
+      <div class="card slim d"><div class="stat"><b>7,9% / 7,8%</b><span>de la varianza de la precariedad explicada por la clase previa y por la de 2010</span></div></div>
+      <div class="card slim y"><p><strong>n por grupo:</strong> servicio 1.516 · intermedia 2.070 · trabajadora 2.329</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="D3 · Precariedad">
+  <div class="eyebrow">Decisión 3</div>
+  <h2>La precariedad vivida combina tres componentes</h2>
+  <p class="lead-in">Todo se calcula entre el nacimiento y 2012. El índice es el promedio de los tres componentes estandarizados, reescalado a desviación estándar uno.</p>
+  <div class="grid3">
+    <div class="card"><span class="pill">Desempleo</span><h3 style="margin-top:10px">Proporción de meses activa en desempleo</h3><p>Sobre los meses en la fuerza de trabajo, no sobre el total, para no confundir inactividad con desempleo.</p></div>
+    <div class="card d"><span class="pill d">Eventos</span><h3 style="margin-top:10px">Salidas involuntarias por año activa</h3><p>Salidas no voluntarias según el motivo de salida declarado en la historia laboral.</p></div>
+    <div class="card y"><span class="pill y">Contrato</span><h3 style="margin-top:10px">Proporción de meses en empleo precario</h3><p>Sin contrato firmado, a plazo fijo, por obra o faena, de servicios transitorios o a honorarios.</p></div>
+  </div>
+  <div class="card slim g" style="margin-top:20px"><p><strong>Por qué no un solo indicador.</strong> Las definiciones de empleo precario varían mucho (Kreshpaj et al. 2020). Combinar estado contractual, desempleo y eventos permite ver después qué parte es posición y qué parte es evento.</p></div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="D4 · Descomposición">
+  <div class="eyebrow">Decisión 4</div>
+  <h2>Separo posición y shocks con una regresión de predicción</h2>
+  <div class="eq">precariedad<sub>post</sub> = f(clase previa, educación, historia laboral previa, meses activa post) + e<small>Esperada (posición) = valor predicho · No esperada (shocks) = residuo · ambas estandarizadas y en el mismo modelo</small></div>
+  <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:26px;margin-top:16px">
+    <table class="dec tight">
+      <thead><tr><th style="width:36%">Predictor</th><th>Para qué está</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Clase EGP previa y spline de ISEI</td><td>Posición ocupacional</td></tr>
+        <tr><td class="k">Educación de la madre</td><td>Recursos y empleabilidad</td></tr>
+        <tr><td class="k">Proporción precaria previa</td><td>Posición contractual anterior</td></tr>
+        <tr><td class="k">Proporción en desempleo previa</td><td>Riesgo de desempleo anterior</td></tr>
+        <tr><td class="k">Meses activa y meses observables antes</td><td>Igualar la cantidad de historia disponible</td></tr>
+        <tr><td class="k">Log de meses activa después</td><td>Comparar madres con inserción similar</td></tr>
+      </tbody>
+    </table>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card slim"><div class="stat"><b>R² = 0,36</b><span>de la precariedad posterior queda como esperada</span></div></div>
+      <div class="card slim d"><div class="stat"><b>r = −0,05 / −0,04</b><span>correlación de la no esperada con el ingreso 2010 y con el ISEI</span></div></div>
+      <div class="card slim y"><div class="stat"><b>r = −0,28</b><span>correlación de la esperada con el ingreso 2010</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="D4 · Lectura">
+  <div class="eyebrow">Decisión 4</div>
+  <h2>Cómo leo cada parte de la descomposición</h2>
+  <table class="dec">
+    <thead><tr><th style="width:18%"></th><th style="width:28%">Qué es</th><th style="width:28%">Qué no es</th><th>Consecuencia para la lectura</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Precariedad esperada</td><td>Lo que la posición observable del hogar hacía probable</td><td>No es puramente estructural: la historia previa refleja también decisiones de la madre</td><td>Su coeficiente absorbe la confusión ligada a la posición. Se describe, no se interpreta como efecto</td></tr>
+      <tr><td class="k">Precariedad no esperada</td><td>Lo que la posición no predecía</td><td>No es puramente un shock exógeno: incluye error de medición y lo que la madre podía prever</td><td>El error atenúa sus asociaciones. Su valor está en que casi no se relaciona con la clase</td></tr>
+    </tbody>
+  </table>
+  <div class="grid2" style="margin-top:18px;gap:22px">
+    <div class="card slim g"><p><strong>Validación con datos no usados.</strong> La no esperada predice empleo precario de la madre en 2017: +3 puntos porcentuales por DE, neto de ingreso y clase. Capta algo más que ruido.</p></div>
+    <div class="card slim y"><p><strong>Término a discutir.</strong> "Shock" puede sobrestimar lo que mide el residuo. La alternativa es "precariedad no predicha" en todo el texto.</p></div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-title="D5 · Resultados">
+  <div class="eyebrow">Decisión 5</div>
+  <h2>Ordeno 28 resultados en cuatro dominios</h2>
+  <table class="dec tight">
+    <thead><tr><th style="width:21%">Dominio</th><th style="width:52%">Medidas (ola)</th><th style="width:14%">Informante</th><th>Exige</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Inversión y planificación del hogar</td><td>Índices de inversión 2017 y 2024 (colegio no público, materiales, computador, libros, lectura, extraprogramáticas, salidas culturales); expectativa universitaria de la cuidadora (2012, 2017, 2024); esperanza (2024)</td><td>Cuidadora</td><td>Recursos y horizonte</td></tr>
+      <tr><td class="k">Bienestar familiar</td><td>Estrés parental (2012, 2024); depresión de la cuidadora (2017, 2024); competencia parental (2024); conducta CBCL (2017, 2024); consumo y ansiedad adolescente (2024)</td><td>Cuidadora, adolescente</td><td>Responde a la disrupción</td></tr>
+      <tr><td class="k">Capacidades de los niños</td><td>Índice cognitivo (vocabulario, control inhibitorio, memoria de trabajo, 2017); matemáticas (2017); vocabulario y logro escolar (2024)</td><td>Evaluador, adolescente</td><td>Inversión sostenida</td></tr>
+      <tr><td class="k">Horizontes de los niños</td><td>Expectativa universitaria (2017, 2024); aspiración ocupacional; autoconcepto y vínculo escolar; resiliencia; satisfacción vital</td><td>Niño, adolescente</td><td>Futuro predecible</td></tr>
+    </tbody>
+  </table>
+  <p class="ref" style="margin-top:12px">Índices = promedios de componentes estandarizados (Anderson 2008). Placebo: peso al nacer. Que los dominios tengan informantes distintos ayuda a descartar que el ánimo de un solo informante produzca el patrón.</p>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-title="D6 · Especificación">
+  <div class="eyebrow">Decisión 6</div>
+  <h2>Una especificación única para todos los resultados</h2>
+  <table class="dec tight">
+    <thead><tr><th style="width:22%">Elemento</th><th style="width:40%">Elección</th><th>Razón</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Exposición</td><td>Precariedad esperada y no esperada juntas, por DE</td><td>Comparar ambas partes en el mismo modelo</td></tr>
+      <tr><td class="k">Ingreso</td><td>Splines naturales del rango de ingreso 2010 (4 g.l.)</td><td>Separar la inseguridad del nivel de recursos sin imponer linealidad</td></tr>
+      <tr><td class="k">Inserción laboral</td><td>Log de meses en la fuerza de trabajo</td><td>Comparar madres con exposición laboral similar</td></tr>
+      <tr><td class="k">Controles</td><td>Educación de la cuidadora, región, puntajes WAIS de la cuidadora, depresión posparto diagnosticada; edad y sexo en resultados de los niños</td><td>Confusores previos al período de exposición</td></tr>
+      <tr><td class="k">Gradiente de clase</td><td>Servicio menos trabajadora, solo con región, edad y sexo</td><td>Describir el tamaño total de la clase como referencia</td></tr>
+      <tr><td class="k">Pesos</td><td>Longitudinales 2012–2017 o 2010–2024 según la ola; descriptivos sin pesos</td><td>Los pesos 2012–2017 dejaban fuera 30% de la muestra descriptiva</td></tr>
+      <tr><td class="k">Ingreso faltante</td><td>40 imputaciones combinadas con reglas de Rubin</td><td>Incorporar la incertidumbre de la imputación</td></tr>
+      <tr><td class="k">Errores estándar</td><td>Agrupados por comuna</td><td>Dependencia territorial del muestreo</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-title="D7 · Reglas">
+  <div class="eyebrow">Decisión 7</div>
+  <h2>Fijé las reglas de decisión antes de estimar</h2>
+  <p class="lead-in">Efecto mínimo de interés: 0,05 DE. Un nulo predicho debe ser un nulo informativo, no solo un resultado no significativo (Lakens 2017).</p>
+  <table class="dec">
+    <thead><tr><th style="width:20%">Predicción</th><th style="width:27%">Se cumple si</th><th style="width:27%">Falla si</th><th>Inconclusa si</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Nulo (inversiones, cognición)</td><td>IC 95% dentro de ±0,05 DE</td><td>Efecto dañino significativo y de al menos 0,05 DE</td><td>Ni lo uno ni lo otro</td></tr>
+      <tr><td class="k">Daño (conducta)</td><td>Efecto dañino significativo tras Holm</td><td>Efecto protector significativo</td><td>No significativo</td></tr>
+      <tr><td class="k">Contrastes</td><td>Daño en conducta mayor que en cognición y que en inversiones, con Holm</td><td>Diferencia no significativa o invertida</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="grid2" style="margin-top:18px;gap:22px">
+    <div class="card slim"><p><strong>Contrastes entre resultados</strong> estimados con modelos apilados, para que la diferencia tenga su propio error estándar.</p></div>
+    <div class="card slim y"><p><strong>Todo lo demás es exploratorio</strong> y así se reporta: atlas completo, efectos dentro de clase, colchones y realización tardía.</p></div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-title="R1 · Posición">
+  <div class="eyebrow">Resultados</div>
+  <h2>La precariedad vivida es sobre todo posición</h2>
+  <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:26px;align-items:start">
+    <div class="figbox"><img src="fig1_es.png" alt="Varianza de la precariedad posterior al nacimiento explicada por la clase y por la historia laboral previa"></div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card slim"><div class="stat"><b>8% → 31%</b><span>varianza explicada: solo clase previa, luego con la historia laboral previa</span></div></div>
+      <div class="card slim d"><div class="stat"><b>60%</b><span>de los meses empleada después del nacimiento ocurren en un empleo que empezó antes</span></div></div>
+      <div class="card slim y"><div class="stat"><b>45% vs 25%</b><span>precarias en 2017, tercil alto vs bajo de precariedad temprana</span></div></div>
+      <div class="card slim g"><p><strong>Excepción:</strong> la historia previa explica solo 5% de las salidas involuntarias. Esas sí se comportan como eventos.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-title="R2 · Prueba">
+  <div class="eyebrow">Resultados · prueba especificada</div>
+  <h2>Dos de tres predicciones se cumplen; la de inversiones falla</h2>
+  <table class="dec">
+    <thead><tr><th style="width:22%">Bloque</th><th style="width:13%">Predicción</th><th style="width:20%">Posición (DE)</th><th style="width:20%">Shocks (DE)</th><th>Veredicto</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Inversiones</td><td>Nula</td><td>−0,045 [−0,085; −0,005]</td><td>−0,047 [−0,081; −0,013]</td><td><span class="tag no">Falla</span> inconclusa según la regla</td></tr>
+      <tr><td class="k">Cognición</td><td>Nula</td><td>−0,064 [−0,104; −0,024]</td><td>0,004 [−0,031; 0,039]</td><td><span class="tag ok">Se cumple</span> nulo informativo</td></tr>
+      <tr><td class="k">Problemas de conducta</td><td>Daño</td><td>0,022 [−0,018; 0,062]</td><td>0,042 [0,011; 0,074]</td><td><span class="tag ok">Se cumple</span> Holm p = 0,013</td></tr>
+      <tr><td class="k">Conducta − cognición</td><td>Mayor daño</td><td></td><td>0,046 [0,003; 0,089]</td><td><span class="tag ok">Se cumple</span> Holm p = 0,034</td></tr>
+      <tr><td class="k">Conducta − inversiones</td><td>Mayor daño</td><td></td><td>−0,005 [−0,052; 0,043]</td><td><span class="tag no">Falla</span> Holm p = 0,58</td></tr>
+    </tbody>
+  </table>
+  <div class="card slim y" style="margin-top:16px"><p><strong>Lo que enseña la predicción fallida.</strong> Los shocks reducen la inversión tanto como la posición. Los hogares parecen recortar compromisos de largo plazo ante pérdidas inesperadas, como predice la vía de la planificación. El estrés parental de 2012 explica poco de la conducta (0,058 → 0,048).</p></div>
+  <p class="ref" style="margin-top:8px">n ≈ 3.250–3.300, pesos 2012–2017.</p>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-title="R3 · Atlas">
+  <div class="eyebrow">Resultados · 28 resultados</div>
+  <h2>La clase domina en todos los dominios</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start">
+    <div class="figbox"><img src="fig3_es.png" alt="Gradiente de clase, posición y shocks en los 28 resultados" style="max-height:495px"></div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card slim d"><div class="stat"><b>0,2–0,65 DE</b><span>gradiente servicio vs trabajadora, en todos los dominios</span></div></div>
+      <div class="card slim"><div class="stat"><b>≤ 0,08 DE</b><span>tamaño típico de las asociaciones de posición y de shocks</span></div></div>
+      <p style="font-size:16.5px">La inseguridad no compite con la clase como fuente de desigualdad. La pregunta es si sus partes reproducen el perfil de la clase o tienen uno propio.</p>
+      <p class="ref">Puntos rellenos: IC 95% excluye el cero. Binarios convertidos a DE. El gradiente de clase tiene su propia escala. Placebo nulo en todos los casos.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-title="R4 · Perfiles">
+  <div class="eyebrow">Resultados</div>
+  <h2>Posición y shocks actúan sobre resultados distintos</h2>
+  <table class="dec">
+    <thead><tr><th style="width:23%">Dominio</th><th style="width:38%">Posición</th><th>Shocks</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Inversión y planificación</td><td>Menor inversión; menores expectativas de la cuidadora</td><td>Menor inversión (−0,05 DE); las expectativas de la cuidadora no cambian</td></tr>
+      <tr><td class="k">Bienestar familiar</td><td>Más estrés parental y depresión (+0,06 DE)</td><td>Más problemas de conducta; sin efecto en depresión ni estrés posteriores</td></tr>
+      <tr><td class="k">Capacidades</td><td>Cognición −0,06, matemáticas −0,05, logro −0,08 DE</td><td>Nada <span class="tag ok">nulo informativo en cognición</span></td></tr>
+      <tr><td class="k">Horizontes</td><td>Débil</td><td>Expectativa universitaria −2,4 pp (2017) y −1,6 pp (2024); aspiración −1,9 pp; menor vínculo escolar</td></tr>
+      <tr><td class="k">Sin efecto</td><td>—</td><td>Consumo, ansiedad, resiliencia y satisfacción vital adolescente</td></tr>
+    </tbody>
+  </table>
+  <div class="quote" style="margin-top:20px;font-size:20px">La posición se comporta como la clase. Los shocks moldean lo que las familias hacen y lo que los niños esperan, no lo que acumulan.</div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-title="R5 · Dentro de clase">
+  <div class="eyebrow">Resultados · exploratorio</div>
+  <h2>Los shocks pesan sobre todo en la clase de servicio</h2>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start">
+    <div class="figbox"><img src="fig4_es.png" alt="Asociación de los shocks dentro de cada grupo de clase"></div>
+    <table class="dec tight">
+      <thead><tr><th style="width:40%">Explicación alternativa</th><th>Qué muestran los datos</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Escala</td><td><span class="tag mid">En parte</span> La no esperada varía menos en servicio. Al reescalar por clase, las estimaciones bajan un tercio y siguen significativas</td></tr>
+        <tr><td class="k">Ruido en clase trabajadora</td><td><span class="tag no">No</span> Ahí la no esperada predice mejor la precariedad posterior</td></tr>
+        <tr><td class="k">Movilidad descendente</td><td><span class="tag no">No</span> Los shocks no predicen salir de servicio; igual efecto entre quienes se quedan</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card slim y" style="margin-top:14px"><p><strong>En servicio, por DE común:</strong> inversión 2017 −0,17 · cognición −0,10 · depresión de la cuidadora 2017 +0,11 · expectativa universitaria adolescente −5,4 pp. En clase trabajadora, cerca de cero.</p></div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-title="R6 · Colchones">
+  <div class="eyebrow">Resultados · exploratorio</div>
+  <h2>Los colchones no amortiguan los shocks como esperaba</h2>
+  <table class="dec">
+    <thead><tr><th style="width:26%">Colchón (2010)</th><th style="width:28%">Predicción</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Índice de 11 bienes durables</td><td>Atenúa el daño</td><td><span class="tag no">No</span> Ninguna interacción en la dirección esperada sobrevive a Holm</td></tr>
+      <tr><td class="k">Ingreso (rango 2010)</td><td>Atenúa el daño</td><td><span class="tag no">No</span> Interacciones cercanas a cero</td></tr>
+      <tr><td class="k">Vivienda propia pagada</td><td>Atenúa el daño</td><td><span class="tag mid">Débil</span> 6 de 6 en la dirección esperada; ninguna sobrevive a Holm</td></tr>
+      <tr><td class="k">Vivienda cedida por familiares</td><td>Sin pago, debería proteger igual</td><td><span class="tag no">No</span> No protege</td></tr>
+      <tr><td class="k">Vivienda con dividendo</td><td>Obligación fija amplifica</td><td><span class="tag mid">Coherente</span> Mayor daño: inversión −0,12 DE por DE de shock</td></tr>
+    </tbody>
+  </table>
+  <div class="card slim g" style="margin-top:16px"><p><strong>Lectura tentativa.</strong> El daño parece depender menos de los recursos acumulados que de las obligaciones fijas. Probarlo exige medir riqueza y deuda directamente, y la ELPI no lo hace.</p></div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-title="Límites">
+  <h2>Lo que este diseño no permite afirmar</h2>
+  <ul class="clean" style="max-width:1050px">
+    <li>Ninguna estimación es causal. La esperada absorbe confusión ligada a la posición y la no esperada contiene error de medición, que probablemente atenúa sus asociaciones.</li>
+    <li>La clase de la pareja se mide en 2010, dentro de la ventana de exposición.</li>
+    <li>La historia mensual termina en 2012. El momento de los shocks no puede estudiarse después con la misma precisión.</li>
+    <li>Los colchones se miden en 2010 y podrían responder ellos mismos a los shocks tempranos.</li>
+    <li>Los análisis exploratorios (dentro de clase, colchones) involucran muchas comparaciones y requieren replicación.</li>
+  </ul>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-title="Discusión">
+  <h2>Decisiones que quiero discutir con ustedes</h2>
+  <div class="next">
+    <div class="nrow"><div class="qmark">?</div><p class="q">¿Es defendible llamar "shocks" a la precariedad no predicha, o conviene un término más descriptivo?</p></div>
+    <div class="nrow"><div class="qmark">?</div><p class="q">¿La predicción fallida en inversiones debe ser un hallazgo central del artículo o quedar como resultado secundario?</p></div>
+    <div class="nrow"><div class="qmark">?</div><p class="q">¿El hallazgo dentro de la clase de servicio va en el cuerpo del artículo o en material suplementario?</p></div>
+    <div class="nrow"><div class="qmark">?</div><p class="q">¿Mantengo la sección de colchones, con sus nulos, o la reduzco a una nota de limitaciones?</p></div>
+    <div class="nrow"><div class="qmark">?</div><p class="q">Con un artículo de estratificación, ¿Research in Social Stratification and Mobility es la revista adecuada?</p></div>
+  </div>
+  <div class="foot"><span>Inseguridad económica más allá de la clase</span><span class="n"></span></div>
+</section>
+
+</div></div>
+<div id="progress"></div>
+<div id="notes" hidden></div>
+<div id="help">&larr; &rarr; navegar &middot; N notas &middot; F pantalla completa</div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const deck=document.getElementById('deck');
+  const prog=document.getElementById('progress');
+  const notesBox=document.getElementById('notes');
+  let i=0, showNotes=false;
+  const total=slides.length;
+  slides.forEach((s,k)=>{const n=s.querySelector('.foot .n'); if(n) n.textContent=(k+1)+' / '+total;});
+  slides.forEach(s=>{const im=document.createElement('img'); im.src='logo-uc-azul.svg'; im.alt='Pontificia Universidad Católica de Chile'; im.className='logo'; s.appendChild(im);});
+  function fit(){const s=Math.min((window.innerWidth-32)/1280,window.innerHeight/720)*0.98; deck.style.transform='scale('+s+')';}
+  function show(k){
+    i=Math.max(0,Math.min(total-1,k));
+    slides.forEach((s,j)=>s.classList.toggle('active',j===i));
+    prog.style.width=((i+1)/total*100)+'%';
+    const n=slides[i].querySelector('.notes');
+    notesBox.innerHTML=n?'<b>Notas &middot; </b>'+n.innerHTML:'<b>Notas &middot; </b>(sin notas)';
+    notesBox.hidden=!showNotes;
+    try{ if(history.replaceState) history.replaceState(null,'','#'+(i+1)); }catch(e){}
+  }
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();show(i+1);}
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();show(i-1);}
+    else if(e.key==='Home') show(0);
+    else if(e.key==='End') show(total-1);
+    else if(e.key==='n'||e.key==='N'){showNotes=!showNotes;show(i);}
+    else if(e.key==='f'||e.key==='F'){ try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.()?.catch?.(()=>{}); else document.exitFullscreen?.(); }catch(err){} }
+  });
+  document.addEventListener('click',e=>{ if(e.target.closest('#notes')) return; (e.clientX>window.innerWidth/3)?show(i+1):show(i-1); });
+  let tx=null; document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{if(tx===null)return; const d=e.changedTouches[0].clientX-tx; if(Math.abs(d)>40) show(d<0?i+1:i-1); tx=null;});
+  window.addEventListener('resize',fit);
+  fit();
+  setTimeout(()=>document.getElementById('help').classList.add('off'),5000);
+  const h=parseInt(location.hash.slice(1)); show(isNaN(h)?0:h-1);
+})();
+</script>
+
+</body></html>
